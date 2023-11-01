@@ -135,7 +135,7 @@ to that it can prevents operations on statefile being performed by multiusers so
 
        terraform init -reconfigure
 
-![hema](./images/images/Images/backend-1.png)
+![hema](./images/Images/backend-1.png)
 
 ![hema](./Images/backend1.png)
 
