@@ -110,10 +110,15 @@ How to remove resources from state file
  ### 5 steps in terraoform
 
  terraform init
+
  terraform validate
+
   terraform fmt
+
  terraform apply
+
 terrarom plan
+
 terraform destroy
 
 ### state file locking
