@@ -137,7 +137,7 @@ to that it can prevents operations on statefile being performed by multiusers so
 
 ![hema](./images/Images/backend-1.png)
 
-![hema](./Images/backend1.png)
+![hema](./images/Images/backend1.png)
 
 ## without remort backend same templet creates two times 
 
