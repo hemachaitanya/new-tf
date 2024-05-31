@@ -268,3 +268,44 @@ features:
 ![hema](./images/Images/duplicate-state-4.png)
 
 
+### funtions 
+
+#### count 
+
+* count hw many numbers we give that number exactly matches the  names of resource
+
+* incase we are manually delete the middle resource then we can again terraform apply --auto-approve , then 3rd resource  delete and recreate .
+
+![hea](./images/Images/count-funcion.png)
+
+* we can delete the 3rd file and change count is 4
+
+![hema](./images/Images/count-2.png)
+
+* then 4 and 5 files are delete and recreate
+
+![hema](./images/Images/count.3.png)
+
+![hema](./images/Images/count.4.png)
+
+## for_each
+
+* we create 5 files in local 
+
+* incase i can delete the 3rd file manually , and delete from terraform template we cannot change the files 
+
+![hema](./images/Images/for_each-1.png)
+
+![hema](./images/Images/for-each-2.png)
+
+![hema](./images/Images/for-each-3.png)
+
+### length function
+
+* count function is definatly we change the no.
+
+* but in the length function first you create 5 files after that you want 7 files only you change the names extra we add .
+
+
+
+
