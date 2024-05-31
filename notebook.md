@@ -8,10 +8,15 @@
 
 ### Terraform  init: 
 to create background information
+
+* terraform force-unlock <lock-id>
+
 ### console:
 interactive console for tf interpoletion
 
 ### env
+
+* terraform workspace <new/list/show/delete> <workspace-name>
 work space management
 
 ### get 
@@ -85,9 +90,12 @@ Terraform also automatically loads a number of variable definitions files if the
   Create loadbalancer manually and import state file into terraform
 
 ### Terraform import <resource_type>.<resource_name> <resoure_id>
+
 first we create sample tf file 
-![hema](./images/3.png)
-![hema](./images/2.png)
+
+![hema](./images/Images/3.png)
+
+![hema](./images/Images/2.png)
 
 
 
@@ -101,7 +109,7 @@ How to remove resources from state file
 
 ### Terraform state rm <resource_type>.<resource_id>
 
-![images](./Images/1.png)
+![images](./images/Images/1.png)
 
 ### module tf
 
@@ -141,9 +149,9 @@ to that it can prevents operations on statefile being performed by multiusers so
 
 ## without remort backend same templet creates two times 
 
-![hema](./Images/with-out.png)
+![hema](./images/Images/with-out.png)
 
-![hema](./Images/without-2.png)
+![hema](./images/Images/without-2.png)
 
   ### taint resource
 
@@ -239,5 +247,18 @@ features:
 * it's a  thin wrapper that provides extra tools for keep your configuration DRY , working with multiple tf modules ,and managing remort state.
 
 * you can also execute  tf commands in multiple modules at a time. 
+
+
+## task
+
+![hema](./images/Images/duplicate-state.png)
+
+![hea](./images/Images/duplicate-state-1.png)
+
+![hema](./images/Images/duplicate-state-2.png)
+
+![hea] (./images/Images/duplicate-state-3.png)
+
+![hema](./images/Images/duplicate-state-4.png)
 
 
