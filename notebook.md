@@ -133,7 +133,7 @@ terraform destroy
 it's the statefile 
 to that it can prevents operations on statefile being performed by multiusers so once lock released from oneuser then it's cann't access by another user
 
-### remotebackend :
+### remote backend :
 
  it's used to store terraform state remorte backend we use multicommands
   terraform init,fmt,validate,plan,apply and destroy
@@ -155,6 +155,11 @@ to that it can prevents operations on statefile being performed by multiusers so
 ![hema](./images/Images/without-2.png)
 
   ### taint resource
+
+  terraform taint <resource-type>.<resource-name>
+
+  terraform untaint <resorce-type>.<resource-name>
+
 
   it's delete and recreate (you create local file and check)
 
