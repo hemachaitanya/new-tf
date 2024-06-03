@@ -4,7 +4,7 @@
 
 * terraform import resourcetype.resourcename resource-id
 
-## terraform variables will be passed 5 types 
+### terraform variables will be passed 5 types 
 
   1. default name=hema0
   2. terraform apply -var name=hema1
@@ -13,13 +13,13 @@
   5.  environment name=4
 
 
-     ### Command-line flag (-var):
+ ### Command-line flag (-var):
 
      * terraform apply -var "name=hema1"
 
       This has the highest precedence and will override all other methods
 
-    ### TF_VAR environment variables:
+ ### TF_VAR environment variables:
 
     * Variables set using the TF_VAR_ prefix in the environment variables.
 
@@ -27,7 +27,7 @@
 
     * This takes precedence over terraform.tfvars and default value
 
-    ### Terraform variables file (.auto.tfvars):
+ ### Terraform variables file (.auto.tfvars):
 
     * Variables defined in a .auto.tfvars file.
 
@@ -37,25 +37,25 @@
             
    Automatically loaded and overrides terraform.tfvars and default values.
 
-   ### Variable Definition Files (.tfvars):
+ ### Variable Definition Files (.tfvars):
 
    * terraform apply -var-file="variables.tfvars"
 
     * # In variables.tfvars
        name = "hema4"
 
-  ### Terraform Cloud/Enterprise Variables
+### Terraform Cloud/Enterprise Variables
 
    * Define name = "hema6" in the Terraform Cloud workspace.
 
- ### Environment Variable Interpolation:
+### Environment Variable Interpolation:
 
    * output "name" {
   value = var.name != "" ? var.name : getenv("NAME_VAR")
    }
 
 
-   ### Default values in configuration:
+### Default values in configuration:
 
    * variable "name" {
          default = "hema0"
@@ -63,7 +63,7 @@
 
   * The lowest precedence and only used if no other values are set.
 
- ### 
+ 
  Command-line flag (-var): hema1
  
 TF_VAR environment variables: hema3
