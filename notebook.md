@@ -31,6 +31,7 @@ imort the existing infrastructure into tf
 
 ### ouput
 read and utput from statefile
+
 ### providers
 prints a tree of the providers used in configuration
 
@@ -55,7 +56,90 @@ to check our data syntax will be correct or not
 ### Terraform fmt: 
 write the code  arrangement is in proper setting 
 
-### Terraform plan:
+### Terraform plan variables passing wayin terraform 
+
+1. variables passing from command line 
+
+![hema](.\images\Images\variable.2.png)
+![hema](./images/Images/variable.1.png)
+
+2. when i passed the defaul values it will takes automatically with out  passing any value
+
+```mai.tf
+provider "local" {
+    
+}
+resource "local_file" "hmlt" {
+    content = var.filename
+    filename = var.content
+
+}
+## var.tf
+variable "filename" {
+    description = "hai ra mamma"
+    type = string
+    }
+variable "content" {
+    description = "main theam"
+    type = string
+  
+}
+
+
+i cannot mention any values aither default or any values
+
+```
+![hema](./images/Images/variable4.png)
+
+* we can give the values in values.tfvars
+```values.tfvars
+filename = "chaitanya"
+content = "hai chaitu"
+```
+
+![hema](./images/Images/variable5.png)
+
+* above task resolve the issue by using "terraform apply -var-file=variable.tfvars"
+
+3. rename the values.tfvars to terraform.tfvars
+
+![hema](./images/Images/variable6.png)
+
+* here automatically  takes the values 
+
+4. we can replace the terraform.tfvars to *.auto.tfvars
+
+![hema](./images/Images/autovariable1.png)
+
+* variables are declared in json formate also , like "key"="value"
+
+![hema](./images/Images/json-variables.png)
+
+5. using environment variables 
+
+![heam](./images/Images/env-variables.png)
+
+* with out giving any defalut value 
+
+export command gives on instance only 
+
+    export TF_VAR_filename="hema.txt"
+
+    export TF_VAR_content="ha chaitu, i am hema"
+
+
+![hema](./images/Images/env-variables.png)
+
+
+
+* automatically filles the values with out using -var-file
+
+
+
+
+
+
+#### variables pass from the 
  what we want to create information will we gives its give plan of output
 
 ### Terraform apply: 
