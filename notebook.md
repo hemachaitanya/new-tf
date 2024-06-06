@@ -60,12 +60,13 @@ write the code  arrangement is in proper setting
 
 1. variables passing from command line 
 
-![hema](.\images\Images\variable.2.png)
-![hema](./images/Images/variable.1.png)
+![hema](./Images/variable.2.png)
+
+![hema](./Images/variable.1.png)
 
 2. when i passed the defaul values it will takes automatically with out  passing any value
 
-```mai.tf
+```main.tf
 provider "local" {
     
 }
@@ -89,7 +90,7 @@ variable "content" {
 i cannot mention any values aither default or any values
 
 ```
-![hema](./images/Images/variable4.png)
+![hema](./Images/variable4.png)
 
 * we can give the values in values.tfvars
 ```values.tfvars
@@ -97,27 +98,27 @@ filename = "chaitanya"
 content = "hai chaitu"
 ```
 
-![hema](./images/Images/variable5.png)
+![hema](./Images/variable5.png)
 
 * above task resolve the issue by using "terraform apply -var-file=variable.tfvars"
 
 3. rename the values.tfvars to terraform.tfvars
 
-![hema](./images/Images/variable6.png)
+![hema](./Images/variable6.png)
 
 * here automatically  takes the values 
 
 4. we can replace the terraform.tfvars to *.auto.tfvars
 
-![hema](./images/Images/autovariable1.png)
+![hema](./Images/autovariable1.png)
 
 * variables are declared in json formate also , like "key"="value"
 
-![hema](./images/Images/json-variables.png)
+![hema](./Images/json-variables.png)
 
 5. using environment variables 
 
-![heam](./images/Images/env-variables.png)
+![heam](./Images/env-variables.png)
 
 * with out giving any defalut value 
 
@@ -128,7 +129,7 @@ export command gives on instance only
     export TF_VAR_content="ha chaitu, i am hema"
 
 
-![hema](./images/Images/env-variables.png)
+![hema](./Images/env-variables.png)
 
 
 
@@ -177,9 +178,9 @@ Terraform also automatically loads a number of variable definitions files if the
 
 first we create sample tf file 
 
-![hema](./images/Images/3.png)
+![hema](./Images/3.png)
 
-![hema](./images/Images/2.png)
+![hema](./Images/2.png)
 
 
 
@@ -193,7 +194,7 @@ How to remove resources from state file
 
 ### Terraform state rm <resource_type>.<resource_id>
 
-![images](./images/Images/1.png)
+![images](./Images/1.png)
 
 ### module tf
 
@@ -227,16 +228,16 @@ to that it can prevents operations on statefile being performed by multiusers so
 
        terraform init -reconfigure
 
-![hema](./images/Images/backend-1.png)
+![hema](./Images/backend-1.png)
 
-![hema](./images/Images/backend1.png)
+![hema](./Images/backend1.png)
 
 ## without remort backend same templet creates two times 
 
 
-![hema](./images/Images/with-out.png)
+![hema](./Images/with-out.png)
 
-![hema](./images/Images/without-2.png)
+![hema](./Images/without-2.png)
 
   ### taint resource
 
@@ -341,15 +342,15 @@ features:
 
 ## task
 
-![hema](./images/Images/duplicate-state.png)
+![hema](./Images/duplicate-state.png)
 
-![hea](./images/Images/duplicate-state-1.png)
+![heam](./Images/duplicate-state-1.png)
 
-![hema](./images/Images/duplicate-state-2.png)
+![hema](./Images/duplicate-state-2.png)
 
-![hea] (./images/Images/duplicate-state-3.png)
+![hea] (./Images/duplicate-state-3.png)
 
-![hema](./images/Images/duplicate-state-4.png)
+![hema](./Images/duplicate-state-4.png)
 
 
 ### funtions 
@@ -360,17 +361,17 @@ features:
 
 * incase we are manually delete the middle resource then we can again terraform apply --auto-approve , then 3rd resource  delete and recreate .
 
-![hea](./images/Images/count-funcion.png)
+![hea](./Images/count-funcion.png)
 
 * we can delete the 3rd file and change count is 4
 
-![hema](./images/Images/count-2.png)
+![hema](./Images/count-2.png)
 
 * then 4 and 5 files are delete and recreate
 
-![hema](./images/Images/count.3.png)
+![hema](./Images/count.3.png)
 
-![hema](./images/Images/count.4.png)
+![hema](./Images/count.4.png)
 
 ## for_each
 
@@ -378,11 +379,11 @@ features:
 
 * incase i can delete the 3rd file manually , and delete from terraform template we cannot change the files 
 
-![hema](./images/Images/for_each-1.png)
+![hema](./Images/for_each-1.png)
 
-![hema](./images/Images/for-each-2.png)
+![hema](./Images/for-each-2.png)
 
-![hema](./images/Images/for-each-3.png)
+![hema](./Images/for-each-3.png)
 
 ### length function
 
