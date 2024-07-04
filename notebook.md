@@ -9,7 +9,7 @@
  
  * is an *infrastructure as code (IaC)* tool that allows you to manage and provision infrastructure resources using a human-readable configuration file. *Here are some essential Terraform commands for a DevOps engineer* :
 
-###Initialization and Setup*
+### Initialization and Setup*
 
 1. `terraform init` - Initialize a new Terraform working directory
 2. `terraform version` - Check the Terraform version
