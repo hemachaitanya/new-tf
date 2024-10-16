@@ -97,6 +97,52 @@ terraform import aws_instance.my_instance i-1234567890abcdef0
 6. Using a Version Constraint in Terraform Configuration:
 To ensure that your configuration works with a specific version of Terraform, you can define a 
 
+ ### Terraform
+ 
+ * is an *infrastructure as code (IaC)* tool that allows you to manage and provision infrastructure resources using a human-readable configuration file. *Here are some essential Terraform commands for a DevOps engineer* :
+
+### Initialization and Setup*
+
+1. `terraform init` - Initialize a new Terraform working directory
+2. `terraform version` - Check the Terraform version
+3. `terraform login` - Authenticate with Terraform Cloud or Enterprise
+
+### Configuration and Planning*
+
+1. `terraform config` - Validate and inspect the Terraform configuration
+2. `terraform plan` - Generate and show an execution plan
+3. `terraform plan -out=<file>` - Save the plan to a file for later execution
+
+#### Deployment and Management*
+
+1. `terraform apply` - Apply the configuration and create resources
+2. `terraform apply -auto-approve` - Apply without prompting for approval
+3. `terraform destroy` - Destroy all resources managed by Terraform
+4. `terraform refresh` - Update the Terraform state to match the current infrastructure
+5. `terraform import` - Import existing infrastructure into Terraform
+
+### State Management*
+
+1. `terraform state list` - List all resources in the Terraform state
+2. `terraform state show <resource>` - Show the details of a specific resource
+3. `terraform state mv <resource> <new_name>` - Rename a resource
+4. `terraform state rm <resource>` - Remove a resource from the state
+
+#### Modules and Workspaces*
+
+1. `terraform module` - Manage reusable Terraform modules
+2. `terraform workspace` - Manage multiple, isolated Terraform workspaces
+3. `terraform workspace select <workspace>` - Switch to a different workspace
+
+### Other Commands*
+
+1. `terraform output` - Show output values from the Terraform configuration
+2. `terraform console` - Open an interactive Terraform console
+3. `terraform graph` - Generate a visual graph of the Terraform configuration
+4. `terraform debug` - Enable debug logging for Terraform
+
+*Note* : This is not an exhaustive list, but it covers many essential Terraform commands for DevOps engineers. For more information, you can refer to the official Terraform documentation
+
 
 ### Terraform  init: 
 to create background information
