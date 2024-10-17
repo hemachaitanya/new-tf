@@ -907,23 +907,21 @@ Example:
 
 * terraform state show aws_instance.my_instance
 This will output detailed information (such as IP, ID, etc.) about the aws_instance resource with the name my_instance.
-
+```
 3. Reverting to a Previous Terraform Version:
 If you want to revert to a previous version of Terraform and manage the same resources, follow these steps:
 
 A. Check Current Terraform Version:
 First, check your current Terraform version:
 
-bash
-Copy code
+
 terraform version
 B. Switch to a Previous Terraform Version:
 You can manually download and install a previous version of Terraform. Here are two options:
 
 Using Version Managers (e.g., tfenv): If you use tfenv (Terraform version manager), you can easily switch between versions:
 
-bash
-Copy code
+
 tfenv install <version>  # e.g., tfenv install 1.0.11
 tfenv use <version>
 Manual Installation: Go to the Terraform releases page and download the desired version. Replace the existing Terraform binary with the downloaded one.
@@ -931,23 +929,23 @@ Manual Installation: Go to the Terraform releases page and download the desired 
 C. Re-initialize Terraform:
 After changing the Terraform version, you need to re-initialize your project to download the correct provider plugins for that version:
 
-bash
-Copy code
+
 terraform init
 4. Downgrading or Upgrading State:
 If you’re changing versions, there’s a chance that newer state files may not be compatible with older versions. If Terraform detects this, it will warn you or fail. In that case, you should:
 
 Backup your state file before downgrading:
 
-bash
-Copy code
+
 cp terraform.tfstate terraform.tfstate.backup
 If you need to migrate the state file to an older version or handle version differences, you can use:
 
 
 ##### terraform state pull
+
    Retrieves the latest state from remote backends
-terraform state push  # Pushes local state to remote backends
+terraform state push
+ # Pushes local state to remote backends
 5. Restoring or Managing the State Manually:
 If the state file is lost or corrupted, you can:
 
@@ -961,7 +959,7 @@ Copy code
 terraform import aws_instance.my_instance i-1234567890abcdef0
 6. Using a Version Constraint in Terraform Configuration:
 To ensure that your configuration works with a specific version of Terraform, you can define a
-```
+
 
  ### Terraform
  
