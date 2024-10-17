@@ -1,4 +1,4 @@
-
+```terraform
 1. What is Terraform in AWS ?
    
 Terraform is an “Infrastructure as a code” tool that allows you to create, update, and version your infrastructure through coding instead of manual processes.
@@ -960,7 +960,8 @@ bash
 Copy code
 terraform import aws_instance.my_instance i-1234567890abcdef0
 6. Using a Version Constraint in Terraform Configuration:
-To ensure that your configuration works with a specific version of Terraform, you can define a 
+To ensure that your configuration works with a specific version of Terraform, you can define a
+```
 
  ### Terraform
  
