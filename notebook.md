@@ -1199,6 +1199,7 @@ How to remove resources from state file
 
 ![images](./Images/1.png)
 
+
 ### module tf
 
  it' a terraform configuration files in a single directory when we want to run module from single directory is known as root module
@@ -1215,15 +1216,23 @@ Example command for setting the TF_LOG environment variable to DEBUG:
 export TF_LOG=DEBUG
 
 Set the TF_LOG environment variable to one of the following values:
+
 TRACE: This is the most detailed logging level and provides extensive information about Terraform's internal operations. 
+
 It's helpful for debugging complex issues but can produce a large amount of output.
+
 DEBUG: This level is less detailed than TRACE but still provides verbose information useful for debugging.
+
 INFO: This is the default logging level. It provides basic informational messages about Terraform's actions.
+
 WARN: This level only displays warning messages.
+
 ERROR: This level only displays error messages.
+
 2. Run Terraform Commands:
 
 After setting the TF_LOG environment variable, run your Terraform commands as usual (e.g., terraform apply, terraform plan, etc.).
+
 3. View the Detailed Logs:
 
 Terraform will now output detailed logs according to the verbosity level set by the TF_LOG environment variable. You'll see additional information about what Terraform is doing behind the scenes.
@@ -1235,7 +1244,7 @@ Restore from Backup: If you have a backup of the state file, you can restore it 
 Recreate the State File:
 terraform import
 If your infrastructure is still intact you can recreate the state file.
-
+```terraform
 4. Difference between Local variables and Terraform variables?
 Local Variables: Limited to a module or resource block and can’t be overridden.
 
@@ -1681,6 +1690,8 @@ resource "aws_instance" "my_instance" {
   }
 }
 We’re using a local backend and setting the workspace_dir based on the value of an environment variable called environment. This allows us to switch between different workspaces by setting the environment variable to the desired value.
+
+```
 
  ### 5 steps in terraoform
 
