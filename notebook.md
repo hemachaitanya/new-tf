@@ -1,5 +1,5 @@
-```terraform
-1. What is Terraform in AWS ?
+
+### 1. What is Terraform in AWS ?
    
 Terraform is an “Infrastructure as a code” tool
 that allows you to create, update, and version your infrastructure through coding instead of manual processes.
@@ -37,9 +37,7 @@ terraform import [OPTION] ADDRESS_ID
 
 terraform import aws_instance.localname i-abcd123 
 
-🔹 Question 2: You are working with multiple environments
-(e.g., dev, prod) and want to avoid duplicating code.
- How would you structure your Terraform configurations to achieve code reuse?
+### 🔹 Question 2: You are working with multiple environments(e.g., dev, prod) and want to avoid duplicating code.How would you structure your Terraform configurations to achieve code reuse?
 OR
 
 Your team wants to ensure that the infrastructure is consistently provisioned
@@ -57,14 +55,13 @@ terraform workspace new prod
 
 terraform workspace select <workspace_name>
 
-🔹 Question 3: Describe a situation where you might need
- to use the terraform remote backend, and what advantages does it offer in state management?
+### 🔹 Question 3: Describe a situation where you might needto use the terraform remote backend, and what advantages does it offer in state management?
 
 The terraform remote backend allows you to store Terraform state files
  in a centralized location, such as an object storage service like Amazon S3.
 
 Benefits: Shared state, locking, secure state storage.
-
+```terraform
 terraform {
   backend "s3" {
     bucket         = "<your_bucket_name>"
@@ -73,15 +70,15 @@ terraform {
     dynamodb_table = "terraform_locks"  # Optional: Use DynamoDB for state locking
   }
 }
+```
 
-🔹 Question 4: You need to create a highly available architecture
- in AWS using Terraform. Explain how you would implement
-an Auto Scaling Group with load balancing.
+### 🔹 Question 4: You need to create a highly available architecturein AWS using Terraform. Explain how you would implement an Auto Scaling Group with load balancing.
 
 1. Define Load Balancer Resources: If you don’t already have a load balancer
 in your infrastructure, define the load balancer resources including the load balancer itself,
 a target group, and any necessary listeners and listener rules.
 
+```terraform
 resource "aws_lb" "example" {
   name               = "example-lb"
   internal           = false
@@ -91,7 +88,6 @@ resource "aws_lb" "example" {
 
   subnets            = ["${aws_subnet.example.id}"]
 }
-
 
 resource "aws_lb_target_group" "example" {
   name        = "example-tg"
@@ -109,10 +105,10 @@ resource "aws_lb_target_group" "example" {
 
   vpc_id = "${aws_vpc.example.id}"
 }
+```
+### 2. Define Auto Scaling Group: Define an Auto Scaling Group, referencing the existingor newly created launch configuration and specifyingthe load balancer target group to distribute traffic.
 
-2. Define Auto Scaling Group: Define an Auto Scaling Group, referencing the existing
-or newly created launch configuration and specifying
-the load balancer target group to distribute traffic.
+```terraform
 
 resource "aws_autoscaling_group" "example" {
   name                 = "example-asg"
@@ -130,11 +126,12 @@ resource "aws_autoscaling_attachment" "example" {
   autoscaling_group_name = "${aws_autoscaling_group.example.name}"
   alb_target_group_arn   = "${aws_lb_target_group.example.arn}"
 }
+```
 
-
-🔹 Question 5: Your team is adopting a multi-cloud strategy, and you need to manage resources on both AWS and Azure using Terraform. How would you structure your Terraform code to handle this?
+### 🔹 Question 5: Your team is adopting a multi-cloud strategy, and you need to manage resources on both AWS and Azure using Terraform. How would you structure your Terraform code to handle this?
 
 Organize Directories by Cloud Provider: Create separate directories for AWS and Azure within your Terraform project to keep the code organized and maintainable.
+```terraform
 
 terraform_project/
 ├── aws/
@@ -154,6 +151,7 @@ terraform_project/
     │   ├── main.tf
     │   ├── variables.tf
     │   ├── outputs.tf
+```
 Manage Provider Configurations: Declare provider configurations separately for AWS and Azure within their respective directories. This ensures that Terraform applies the correct provider settings for each cloud environment.
 
 # AWS provider configuration in aws/main.tf
@@ -162,8 +160,9 @@ provider "aws" {
   region = "us-west-2"
 }
 
-# Azure provider configuration in azure/main.tf
+#### Azure provider configuration in azure/main.tf
 
+```terraform
 provider "azurerm" {
   features {}
 }
@@ -180,12 +179,16 @@ resource "azurerm_virtual_machine" "example" {
   
   # Azure-specific configuration
 }
-🔹 Question 6: You want to run specific scripts after provisioning resources with Terraform. How would you achieve this, and what provisioners might you use?
+```
+ ### 🔹 Question 6: You want to run specific scripts after provisioning resources with Terraform. How would you achieve this, and what provisioners might you use?
+ 
 Running specific scripts after provisioning resources with Terraform can be achieved using provisioners.
 
 Provisioners are a feature in Terraform that allow you to execute scripts or commands on local or remote machines as part of resource creation or destruction.
 
 Inline Provisioners: Inline provisioners allow you to specify scripts directly within your Terraform configuration.
+
+```terraform
 
 resource "aws_instance" "example" {
   # Instance configuration
@@ -231,11 +234,13 @@ resource "aws_instance" "example" {
     command = "bash external_script.sh"
   }
 }
+```
+### 🔹 Question 7: You are dealing with sensitive information, such as API keys, in your Terraform configuration. What approach would you take to manage these securely?
 
-🔹 Question 7: You are dealing with sensitive information, such as API keys, in your Terraform configuration. What approach would you take to manage these securely?
-
-Use Environment Variables: Store sensitive information as environment variables on your local machine or CI/CD environment. Terraform can read these environment variables during runtime without exposing them directly in the configuration files.
+###### Use Environment Variables:
+Store sensitive information as environment variables on your local machine or CI/CD environment. Terraform can read these environment variables during runtime without exposing them directly in the configuration files.
 Utilize Terraform Variables: Assign them default values equal to empty strings or placeholders. Then, reference these variables throughout your configuration.
+```terraform
 variable "aws_access_key" {
   description = "AWS access key"
   default     = ""
@@ -259,10 +264,14 @@ Then, create a terraform.tfvars file with the actual values:
 aws_access_key = "your-access-key"
 aws_secret_key = "your-secret-key"
 Or input the values directly when running Terraform commands:
+```
 
 terraform apply -var="aws_access_key=your-access-key" -var="aws_secret_key=your-secret-key"
 
-🔹 Question 8: Describe a scenario where you might need to use Terraform workspaces, and how would you structure your project to take advantage of them?
+### 🔹 Question 8: Describe a scenario where you might need to use Terraform workspaces, and how would you structure your project to take advantage of them?
+
+```terraform
+
 Project Structure:
 
 terraform_project/
@@ -295,14 +304,15 @@ terraform_project/
 ├── global_variables.tf
 ├── backend.tf
 ├── provider.tf
+```
 
-🔹 Question 9: You’ve made changes to your Terraform configuration, and now you want to preview the execution plan before applying the changes. How would you do this?
+### 🔹 Question 9: You’ve made changes to your Terraform configuration, and now you want to preview the execution plan before applying the changes. How would you do this?
 
 To preview the execution plan before applying changes to your Terraform configuration, you can use the terraform plan command.
 
 terraform plan
 
-🔹 Question 10: Your team has decided to adopt GitOps practices for managing infrastructure with Terraform. How would you integrate Terraform with version control systems like Git?
+### 🔹 Question 10: Your team has decided to adopt GitOps practices for managing infrastructure with Terraform. How would you integrate Terraform with version control systems like Git?
 
 1. Choose a Git Repository
 
@@ -329,6 +339,8 @@ Include main configuration files, variable definitions, output definitions, and 
 
 #Create a directory structure for Terraform configurations:
 
+```terraform
+
 terraform-aws/
 ├── main.tf
 ├── variables.tf
@@ -342,13 +354,14 @@ terraform-aws/
 │   │   ├── main.tf
 │   │   ├── variables.tf
 │   │   ├── outputs.tf
+```
 #Add and commit Terraform configuration files to the repository:
 
 git add .
 git commit -m "Initial Terraform configurations"
 git push origin main
 
-3. Use Git Branches for Environments
+###### 3. Use Git Branches for Environments
 
 Utilize Git branches to represent different environments (e.g., dev, staging, production).
 
@@ -357,13 +370,13 @@ Each environment branch contains environment-specific Terraform configurations.
 #Example: Create separate branches for development, staging, and production environments.
 
 #Steps:
-#Create a new branch for the dev environment:
+###### #Create a new branch for the dev environment:
 
 git checkout -b dev
 
 #Commit environment-specific Terraform configurations to the dev branch.
 
-#Repeat steps 1-2 for staging and production branches.
+###### Repeat steps 1-2 for staging and production branches.
 
 4. Automate Pull Requests and Reviews
 
@@ -374,8 +387,9 @@ Ensure changes are reviewed and approved by team members before merging.
 #Configure GitHub to require pull requests and code reviews for Terraform changes.
 
 #Steps:
-#Go to the repository settings on GitHub.
+####### Go to the repository settings on GitHub.
 #Under "Branch protection rules", enable required pull request reviews and specify the number of reviewers required.
+
 5. Leverage Git Hooks
 
 Utilize Git hooks to trigger actions automatically based on Git events.
@@ -386,13 +400,13 @@ Use pre-commit hooks for Terraform validation or formatting checks.
 
 chmod +x .git/hooks/pre-commit
 
-6. Continuous Integration/Continuous Deployment (CI/CD)
+###### 6. Continuous Integration/Continuous Deployment (CI/CD)
 
 Set up CI/CD pipelines to automate Terraform workflows.
 
 Perform tasks such as validation, plan generation (terraform plan), and applying changes (terraform apply).
 
-7. Manage Secrets Securely
+###### 7. Manage Secrets Securely
 
 Avoid storing sensitive information directly in Terraform configurations.
 
@@ -401,7 +415,7 @@ Utilize environment variables, Terraform Vault integration, or secrets managemen
  . What is the use of terraform.lock.hcl file
 lock. hcl . It captures the versions of all the Terraform providers you’re using. Normally, you want to check this file into version control so that when your team members run Terraform, they get the exact same provider versions.
 
-2. How to enable detailed logs in Terraform?
+###  2. How to enable detailed logs in Terraform?
 You can adjust the logging verbosity level using the TF_LOG environment variable.
 
 Set the TF_LOG Environment Variable:
@@ -410,13 +424,19 @@ Example command for setting the TF_LOG environment variable to DEBUG:
 export TF_LOG=DEBUG
 
 Set the TF_LOG environment variable to one of the following values:
-TRACE: This is the most detailed logging level and provides extensive information about Terraform's internal operations. 
+#### TRACE:
+This is the most detailed logging level and provides extensive information about Terraform's internal operations. 
 It's helpful for debugging complex issues but can produce a large amount of output.
-DEBUG: This level is less detailed than TRACE but still provides verbose information useful for debugging.
-INFO: This is the default logging level. It provides basic informational messages about Terraform's actions.
-WARN: This level only displays warning messages.
-ERROR: This level only displays error messages.
-2. Run Terraform Commands:
+#### DEBUG: 
+This level is less detailed than TRACE but still provides verbose information useful for debugging.
+#### INFO:
+This is the default logging level. It provides basic informational messages about Terraform's actions.
+#### WARN:
+This level only displays warning messages.
+#### ERROR: 
+This level only displays error messages.
+
+### 2. Run Terraform Commands:
 
 After setting the TF_LOG environment variable, run your Terraform commands as usual (e.g., terraform apply, terraform plan, etc.).
 3. View the Detailed Logs:
@@ -431,9 +451,10 @@ Recreate the State File:
 terraform import
 If your infrastructure is still intact you can recreate the state file.
 
-4. Difference between Local variables and Terraform variables?
-Local Variables: Limited to a module or resource block and can’t be overridden.
+### 4. Difference between Local variables and Terraform variables?
 
+Local Variables: Limited to a module or resource block and can’t be overridden.
+```terraform
 locals {
   instance_type = "t2.micro"
   instance_count = 3
@@ -570,10 +591,15 @@ resource "aws_instance" "example" {
     create_before_destroy = true
   }
 }
-7. How we can destroy specific resources without affecting others?
+```
+### 7. How we can destroy specific resources without affecting others?
+
 terraform destroy -target=resource_type.resource_name
+
 terraform destroy -target=aws_instance.localname
-8. What are the functions in the terraform?
+
+### 8. What are the functions in the terraform?
+
 Functions provide a powerful way to manipulate and transform data within your Terraform configurations, making it easier to express complex logic and requirements.
 
 Here are some common categories of functions in Terraform:
@@ -610,9 +636,14 @@ tomap(): Converts a list of lists into a map.
 
 base64encode(): Encodes a string to Base64.
 base64decode(): Decodes a Base64-encoded string.
-9. What are the different types of modules in terraform?
-Root Modules: Root modules are the top-level configurations in a Terraform project.
+
+### 9. What are the different types of modules in terraform?
+
+#### Root Modules: 
+Root modules are the top-level configurations in a Terraform project.
 They typically define the main configuration files (main.tf, variables.tf, outputs.tf) and may contain resource definitions, variables, outputs, and other configuration elements directly.
+
+```terraform
 main.tf:
 
 resource "aws_instance" "example" {
@@ -635,9 +666,13 @@ Calling the Root Module:
 module "example_root" {
   source = "./"
 }
-2. Child Modules: Child modules are modular components that can be used within root modules or other child modules.
+```
+#### 2. Child Modules: 
+Child modules are modular components that can be used within root modules or other child modules.
 They allow you to break down complex configurations into smaller, more manageable pieces.
 Child modules can have their own resource definitions, variables, outputs, and other configuration elements.
+
+```terraform
 
 child_module/child_module.tf:
 
@@ -680,13 +715,18 @@ main.tf (calling the reusable module):
 module "example_reusable" {
   source = "git::https://github.com/example/reusable_module.git//ec2_instance"
 }
-4. Provider Modules: Provider modules encapsulate provider-specific configurations and resources.
+```
+### 4. Provider Modules:
+Provider modules encapsulate provider-specific configurations and resources.
 They are used to define resources and configurations that are specific to a particular cloud provider or service provider (e.g., AWS, Azure, Google Cloud Platform, etc.).
 Provider modules help abstract provider-specific details and promote portability across different cloud environments.
 
 Provider modules are typically provided by Terraform providers (e.g., aws, azure, google). You can call provider modules directly in your configuration without defining them separately.
-5. Data Modules: Data modules provide a way to retrieve and reference external data sources within your Terraform configurations.
+
+#### 5. Data Modules: 
+Data modules provide a way to retrieve and reference external data sources within your Terraform configurations.
 They are used to fetch and process data from external systems or APIs (e.g., AWS S3 buckets, Azure Key Vault secrets, etc.) and make that data available for use within your Terraform configurations.
+```terraform
 
 main.tf (using AWS S3 bucket data source):
 
@@ -697,8 +737,11 @@ data "aws_s3_bucket" "example" {
 output "bucket_arn" {
   value = data.aws_s3_bucket.example.arn
 }
-6. Composite Modules: Composite modules are modules that combine multiple child modules or resources into a single, cohesive unit.
+```
+#### 6. Composite Modules: 
+Composite modules are modules that combine multiple child modules or resources into a single, cohesive unit.
 They allow you to encapsulate complex infrastructure configurations and define higher-level abstractions that represent entire application stacks or environments
+```terraform
 
 composite_module/main.tf:
 
@@ -714,7 +757,10 @@ main.tf (calling the composite module):
 module "example_composite" {
   source = "./composite_module"
 }
-7. Publish Module: Once the module is published, you can call it from other Terraform configurations using the module block and specifying the source of the module.
+```
+#### 7. Publish Module:
+Once the module is published, you can call it from other Terraform configurations using the module block and specifying the source of the module.
+```terraform
 
 module "example_module" {
   source  = "github.com/organization/module-name"
@@ -724,13 +770,18 @@ module "example_module" {
   variable1 = "value1"
   variable2 = "value2"
 }
+```
 When you run terraform init in the directory containing your configuration, Terraform will download the module from the specified source and version.
 
-10. What is a state file and when it is created?
+### 10. What is a state file and when it is created?
+
 The state file in Terraform is a JSON file that keeps track of your infrastructure’s current state. It’s created when you first apply your Terraform configuration using terraform apply. The state file is essential for Terraform to understand your infrastructure and make necessary changes. It's important to manage state files securely as they contain sensitive information.
 
-11. What are NULL Reasoures used for?
+### 11. What are NULL Reasoures used for?
+
 Null resources in Terraform are like a blank canvas where you can write your own instructions. They don’t represent any real infrastructure but allow you to run custom actions or commands when Terraform runs.
+
+```terraform
 
 resource "null_resource" "example" {
   provisioner "local-exec" {
@@ -748,11 +799,12 @@ data "aws_ami" "example" {
     Tested = "true"
   }
 }
-13. What is a Dynamic block?
+```
+### 13. What is a Dynamic block?
 The dynamic block in Terraform allows you to generate multiple nested blocks dynamically based on a list or map variable.
 
 The syntax for the dynamic block is as follows:
-
+```terraform
 dynamic "block_type" {
   for_each = var.collection
   content {
@@ -774,7 +826,9 @@ variable "instance_types" {
   type    = list(string)
   default = ["t2.micro", "t2.small", "t2.medium"]
 }
-14. What are service endpoint and private endpoint?
+```
+### 14. What are service endpoint and private endpoint?
+
 Service endpoints in AWS provide private connectivity between your VPC and AWS services like S3 or DynamoDB.
 
 While private endpoints (powered by AWS PrivateLink) offer private access to services like EC2 or RDS within your VPC.
@@ -786,16 +840,22 @@ A service endpoint is an interface provided by AWS that allows you to privately 
 When you create a service endpoint, AWS allocates a private IP address from your VPC’s CIDR block for the service.
 Traffic to the service endpoint stays within the AWS network and doesn’t traverse the internet.
 Service endpoints are used for AWS services like Amazon S3, DynamoDB, and others.
+
+```terraform
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.example.id
   service_name      = "com.amazonaws.region.s3"
   route_table_ids   = [aws_route_table.private.id]
 }
-2. Private Endpoint:
+```
+### 2. Private Endpoint:
 
 A private endpoint, also known as an interface endpoint, allows you to connect to AWS services using a private IP address in your VPC.
 Private endpoints are used for services that are powered by AWS PrivateLink, which enables private connectivity between VPCs and AWS services.
 They provide a more granular control over access to the service and can be placed in specific subnets within your VPC.
+
+```terraform
+
 Private endpoints are used for services like Amazon EC2, Amazon RDS, and others.
 resource "aws_vpc_endpoint_service" "example" {
   service_name      = "com.amazonaws.region.ec2"
@@ -806,12 +866,17 @@ resource "aws_vpc_endpoint" "example" {
   service_name      = aws_vpc_endpoint_service.example.service_name
   subnet_ids        = [aws_subnet.private.id]
 }
-15. How can we rename a resource in Terraform without deleting it?
-terraform state mv <resource_type>.<current_name> <resource_type>.<new_name>
-terraform state mv aws_instance.example_instance aws_instance.new_instance
-16. What is a Terraform workspace?
-Let’s assume you have a simple Terraform configuration for provisioning an AWS EC2 instance:
+```
+### 15. How can we rename a resource in Terraform without deleting it?
 
+terraform state mv <resource_type>.<current_name> <resource_type>.<new_name>
+
+terraform state mv aws_instance.example_instance aws_instance.new_instance
+
+### 16. What is a Terraform workspace?
+
+Let’s assume you have a simple Terraform configuration for provisioning an AWS EC2 instance:
+```terraform
 # main.tf
 
 provider "aws" {
@@ -822,6 +887,7 @@ resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
 }
+```
 Now, let's create two separate workspaces for the development and production environments:
 
 # Create a new workspace for development
