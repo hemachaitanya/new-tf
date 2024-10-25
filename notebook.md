@@ -4,25 +4,31 @@
 Terraform is an “Infrastructure as a code” tool
 that allows you to create, update, and version your infrastructure through coding instead of manual processes.
 
-3. What are the most useful Terraform commands?
+### 3. What are the most useful Terraform commands?
    
-terraform init — Initializes the current directory, also Plugin Installation,
+#### terraform init —
+Initializes the current directory, also Plugin Installation,
  Module Installation, Backend Initialization, and Version Checking is done in the background.
 
-terraform refresh — Terraform compares the current state of your infrastructure
+#### terraform refresh — 
+Terraform compares the current state of your infrastructure
  with the state described in your Terraform configuration files and updates its state file accordingly
 
 terraform output — Retrieve the values of output variables defined in your Terraform configuration.
 
-terraform apply — Terraform to apply the changes described
+#### terraform apply — 
+Terraform to apply the changes described
 in your Terraform configuration files to your infrastructure.
 
+#### 
 terraform destroy — Terraform is used to destroy all the resources
 defined in your Terraform configuration.
 
+#### 
 terraform graph — Creates a DOT-formatted graph
 
-terraform plan — Terraform is used to generate an execution plan
+#### terraform plan — 
+Terraform is used to generate an execution plan
 based on your Terraform configuration files.
 
 #### Scenario-Based Interview Questions
