@@ -1,27 +1,35 @@
 ```terraform
 1. What is Terraform in AWS ?
    
-Terraform is an “Infrastructure as a code” tool that allows you to create, update, and version your infrastructure through coding instead of manual processes.
+Terraform is an “Infrastructure as a code” tool
+that allows you to create, update, and version your infrastructure through coding instead of manual processes.
 
 3. What are the most useful Terraform commands?
    
-terraform init — Initializes the current directory, also Plugin Installation, Module Installation, Backend Initialization, and Version Checking is done in the background.
+terraform init — Initializes the current directory, also Plugin Installation,
+ Module Installation, Backend Initialization, and Version Checking is done in the background.
 
-terraform refresh — Terraform compares the current state of your infrastructure with the state described in your Terraform configuration files and updates its state file accordingly
+terraform refresh — Terraform compares the current state of your infrastructure
+ with the state described in your Terraform configuration files and updates its state file accordingly
 
 terraform output — Retrieve the values of output variables defined in your Terraform configuration.
 
-terraform apply — Terraform to apply the changes described in your Terraform configuration files to your infrastructure.
+terraform apply — Terraform to apply the changes described
+in your Terraform configuration files to your infrastructure.
 
-terraform destroy — Terraform is used to destroy all the resources defined in your Terraform configuration.
+terraform destroy — Terraform is used to destroy all the resources
+defined in your Terraform configuration.
 
 terraform graph — Creates a DOT-formatted graph
 
-terraform plan — Terraform is used to generate an execution plan based on your Terraform configuration files.
+terraform plan — Terraform is used to generate an execution plan
+based on your Terraform configuration files.
 
 #### Scenario-Based Interview Questions
 
-🔹Question 1: You have an existing infrastructure on AWS, and you need to use Terraform to manage it. How would you import these resources into your Terraform configuration?
+🔹Question 1: You have an existing infrastructure on AWS,
+and you need to use Terraform to manage it. How would you
+import these resources into your Terraform configuration?
 
 We can use the terraform import command, we need to create a configuration file (dummy file)
 
@@ -29,10 +37,13 @@ terraform import [OPTION] ADDRESS_ID
 
 terraform import aws_instance.localname i-abcd123 
 
-🔹 Question 2: You are working with multiple environments (e.g., dev, prod) and want to avoid duplicating code. How would you structure your Terraform configurations to achieve code reuse?
+🔹 Question 2: You are working with multiple environments
+(e.g., dev, prod) and want to avoid duplicating code.
+ How would you structure your Terraform configurations to achieve code reuse?
 OR
 
-Your team wants to ensure that the infrastructure is consistently provisioned across multiple environments. How would you implement a consistent environment configuration?
+Your team wants to ensure that the infrastructure is consistently provisioned
+ across multiple environments. How would you implement a consistent environment configuration?
 
 We make use of modules so that we can avoid duplication of code.
 
@@ -46,9 +57,11 @@ terraform workspace new prod
 
 terraform workspace select <workspace_name>
 
-🔹 Question 3: Describe a situation where you might need to use the terraform remote backend, and what advantages does it offer in state management?
+🔹 Question 3: Describe a situation where you might need
+ to use the terraform remote backend, and what advantages does it offer in state management?
 
-The terraform remote backend allows you to store Terraform state files in a centralized location, such as an object storage service like Amazon S3.
+The terraform remote backend allows you to store Terraform state files
+ in a centralized location, such as an object storage service like Amazon S3.
 
 Benefits: Shared state, locking, secure state storage.
 
@@ -61,9 +74,13 @@ terraform {
   }
 }
 
-🔹 Question 4: You need to create a highly available architecture in AWS using Terraform. Explain how you would implement an Auto Scaling Group with load balancing.
+🔹 Question 4: You need to create a highly available architecture
+ in AWS using Terraform. Explain how you would implement
+an Auto Scaling Group with load balancing.
 
-1. Define Load Balancer Resources: If you don’t already have a load balancer in your infrastructure, define the load balancer resources including the load balancer itself, a target group, and any necessary listeners and listener rules.
+1. Define Load Balancer Resources: If you don’t already have a load balancer
+in your infrastructure, define the load balancer resources including the load balancer itself,
+a target group, and any necessary listeners and listener rules.
 
 resource "aws_lb" "example" {
   name               = "example-lb"
@@ -93,7 +110,9 @@ resource "aws_lb_target_group" "example" {
   vpc_id = "${aws_vpc.example.id}"
 }
 
-2. Define Auto Scaling Group: Define an Auto Scaling Group, referencing the existing or newly created launch configuration and specifying the load balancer target group to distribute traffic.
+2. Define Auto Scaling Group: Define an Auto Scaling Group, referencing the existing
+or newly created launch configuration and specifying
+the load balancer target group to distribute traffic.
 
 resource "aws_autoscaling_group" "example" {
   name                 = "example-asg"
