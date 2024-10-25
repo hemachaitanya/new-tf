@@ -33,7 +33,7 @@ based on your Terraform configuration files.
 
 #### Scenario-Based Interview Questions
 
-🔹Question 1: You have an existing infrastructure on AWS,
+### 🔹Question 1: You have an existing infrastructure on AWS,
 and you need to use Terraform to manage it. How would you
 import these resources into your Terraform configuration?
 
@@ -157,6 +157,212 @@ terraform_project/
     │   ├── main.tf
     │   ├── variables.tf
     │   ├── outputs.tf
+```
+```main.tf
+
+##  terraform.tfvars
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidrs" {
+  description = "List of CIDR blocks for public subnets"
+  type        = list(string)
+  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+}
+
+variable "private_subnet_cidrs" {
+  description = "List of CIDR blocks for private subnets"
+  type        = list(string)
+  default     = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+}
+
+## main.tf
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr
+  tags = {
+    Name = "MyVPC"
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags = {
+    Name = "MyIGW"
+  }
+}
+
+resource "aws_subnet" "public" {
+  count             = length(var.public_subnet_cidrs)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element(var.public_subnet_cidrs, count.index)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  
+  tags = {
+    Name = "PublicSubnet-${count.index + 1}"
+  }
+}
+
+resource "aws_subnet" "private" {
+  count             = length(var.private_subnet_cidrs)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element(var.private_subnet_cidrs, count.index)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+
+  tags = {
+    Name = "PrivateSubnet-${count.index + 1}"
+  }
+}
+
+resource "aws_route_table" "public_rt" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block                = "0.0.0.0/0"
+    gateway_id                = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "PublicRouteTable"
+  }
+}
+
+resource "aws_route_table_association" "public_association" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+## values.tf
+
+vpc_cidr = "192.168.0.0/16"
+public_subnet_cidrs = ["192.168.0.0/24","192.168.1.0/24","192.168.2.0/24"]
+private_subnet_cidrs = ["192.168.3.0/24","192.168.4.0/24","192.168.5.0/24"]
+
+## outputs.tf
+
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
+
+output "public_subnets" {
+  value = aws_subnet.public[*].id
+}
+
+output "private_subnets" {
+  value = aws_subnet.private[*].id
+}
+
+
+## azure resources 
+
+## variable.tf
+
+variable "vnet_name" {
+    description = "The name of the virtual network"
+    type        = string
+    default     = "MyVNet"
+}
+
+variable "location" {
+    description = "Azure region to deploy resources"
+    type        = string
+    default     = "East US"
+}
+
+variable "vnet_address_space" {
+    description = "The address space for the virtual network"
+    type        = string
+    default     = "10.1.0.0/16"
+}
+
+variable "subnet_prefixes" {
+    description = "List of subnet prefixes"
+    type        = list(string)
+    default     = ["10.1.1.0/24", "10.1.2.0/24"]
+}
+## main.tf
+provider "azurerm" {
+    features {}
+}
+
+resource "azurerm_resource_group" "main" {
+    name     = "${var.vnet_name}-rg"
+    location = var.location
+}
+
+resource "azurerm_virtual_network" "main" {
+    name                = var.vnet_name
+    address_space       = [var.vnet_address_space]
+    location            = azurerm_resource_group.main.location
+    resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_subnet" "subnets" {
+    count               = length(var.subnet_prefixes)
+    name                = "${var.vnet_name}-subnet-${count.index + 1}"
+    resource_group_name = azurerm_resource_group.main.name
+    virtual_network_name= azurerm_virtual_network.main.name
+    address_prefix      = element(var.subnet_prefixes, count.index)
+}
+## outputs.tf
+output "vnet_id" {
+   value       = azurerm_virtual_network.main.id
+}
+
+output "subnets_ids" {
+   value       = azurerm_subnet.subnets[*].id
+}
+root/
+├── main.tf
+└── variables.tf
+
+
+## main.tf
+
+module "aws_vpc" {
+    source        = "../aws_vpc_module"
+    cidr_block    = var.aws_cidr_block
+    subnet1_cidr = var.aws_subnet1_cidr
+    subnet2_cidr = var.aws_subnet2_cidr
+    availability_zone = var.aws_availability_zone 
+}
+
+module "azure_vnet" {
+    source                 = "../azure_vnet_module"
+    vnet_name              = var.azure_vnet_name 
+    address_space          = var.azure_address_space 
+    location               = var.azure_location 
+    resource_group_name    = var.azure_resource_group_name 
+    subnet1_name           = var.azure_subnet1_name 
+    subnet1_address_prefix = var.azure_subnet1_address_prefix 
+    subnet2_name           = var.azure_subnet2_name 
+    subnet2_address_prefix = var.azure_subnet2_address_prefix 
+}
+
+## variables.tf
+
+variable "aws_cidr_block" {}
+variable "aws_subnet1_cidr" {}
+variable "aws_subnet2_cidr" {}
+variable "aws_availability_zone" {}
+
+variable "azure_vnet_name" {}
+variable "azure_address_space" {}
+variable "azure_location" {}
+variable "azure_resource_group_name" {}
+variable "azure_subnet1_name" {}
+variable "azure_subnet1_address_prefix" {}
+variable "azure_subnet2_name" {}
+variable "azure_subnet2_address_prefix" {}
+
 ```
 Manage Provider Configurations: Declare provider configurations separately for AWS and Azure within their respective directories. This ensures that Terraform applies the correct provider settings for each cloud environment.
 
