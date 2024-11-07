@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1beta1 
+kind: StatefulSet
+metadata:
+  name: caddy
+  labels:
+    app: caddy
+spec:
+  podManagementPolicy: parallel
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: caddy
+    template: 
+      metadata: 
+        name: caddy
+        labels: 
+          app: caddy
+      spec: 
+        activeDeadlineSeconds: 5
+        containers:
+          - name: caddy
+            image: caddy
+            ports:
+              - name: web-server
+                containerPort: 80
+                protocol: TCP
+            livenessProbe: 
+              periodSeconds: 5
+              initialDelaySeconds: 5
+              failureThreshold: 3
+              timeoutSeconds: 3
+              tcpSocket: 
+                port: 80
+              
+# error: resource mapping not found for name: "caddy" namespace: "" from "stateful.yaml": no matches for kind "StatefulSet" in version "apps/v1beta1"
+  ensure CRDs are installed first
