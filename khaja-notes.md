@@ -1,3 +1,5 @@
+
+```
 Setting up VS Code for terraform
 We need to install an extension for Terraform from hashicorp
 Preview
@@ -92,8 +94,50 @@ Now to create infrastructure, execute terraform apply where the plan will be sho
 Preview
 To be continued…
 
-Share this:
+Share this
 
+Terraform
+Variables
+Variables are the inputs that can be passed
+official docs
+basic syntax for creating a variable
+variable "<name>" {
+    type = <datatypes of terrarform>
+    default = ""
+    description = "purpose of variable"
+}
+To use the variable use syntax var.<name>
+Using variables in activity 1
+Refer Here for the changes
+Variable values can be passed during apply
+terraform apply -var "<name>=<value>"
+terraform apply -var vpc_cidr=10.0.0.0/16
+Variables values can be stored in a file with extension .tfvars and passed during apply. Refer Here for docs
+terraform apply -var-file='default.tfvars'
+Outputs
+Terraform template outputs show the output after every apply Refer Here for official docs
+Sample output
+Preview
+Adding a sample output to activity 1
+Refer Here for changes.
+outputs.tf file contains outputs
+How to create multiple resources in terraform
+count
+Refer Here for changes to include count
+Terraform functions
+Refer Here for official docs of terraform
+Refer Here for changes.
+Refer Here for the changes done
+Activity 2: Create a Network in Azure
+Overview
+Preview
+Manual steps: (Watch classroom recording)
+Terraform azure providers
+azurerm (Hashicorp) this is most widely used
+azapi (Microsoft) few customers use this as well
+Refer Here for changes done to create the network as mentioned in the above image
+
+Share this:
 
 Terraform
 Terraform state file
@@ -205,4 +249,5 @@ Tagged DevOps
 devops & cloud enthusiastic learner
 
 View all of continuous learner's posts.
-Leave a Reply
+Leave a Replay
+```
