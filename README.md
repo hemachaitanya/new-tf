@@ -1,3 +1,147 @@
+[25/04, 11:39 am] Meta AI: Here are four different Terraform templates to create ten files using the `local_file` resource:
+
+1. Single Terraform File (Normal)
+```
+terraform
+File: terraform.tf
+
+resource "local_file" "example1" {
+  filename = "file1.txt"
+  content  = ""
+}
+
+resource "local_file" "example2" {
+  filename = "file2.txt"
+  content  = ""
+}
+
+resource "local_file" "example3" {
+  filename = "file3.txt"
+  content  = ""
+}
+
+resource "local_file" "example4" {
+  filename = "file4.txt"
+  content  = ""
+}
+
+resource "local_file" "example5" {
+  filename = "file5.txt"
+  content  = ""
+}
+
+resource "local_file" "example6" {
+  filename = "file6.txt"
+  content  = ""
+}
+
+resource "local_file" "example7" {
+  filename = "file7.txt"
+  content  = ""
+}
+
+resource "local_file" "example8" {
+  filename = "file8.txt"
+  content  = ""
+}
+
+resource "local_file" "example9" {
+  filename = "file9.txt"
+  content  = ""
+}
+
+resource "local_file" "example10" {
+  filename = "file10.txt"
+  content  = ""
+}
+```
+
+2. Using Count Function
+```
+terraform
+File: terraform.tf
+
+resource "local_file" "example" {
+  count    = 10
+  filename = "file${count.index + 1}.txt"
+  content  = ""
+}
+```
+
+3. Using Variables
+```
+terraform
+File: variables.tf
+variable "file_count" {
+  type        = number
+  default     = 10
+}
+
+File: terraform.tf
+resource "local_file" "example" {
+  count    = var.file_count
+  filename = "file${count.index + 1}.txt"
+  content  = ""
+}
+```
+
+4. Using Length Function
+```
+terraform
+File: variables.tf
+variable "files" {
+  type        = list(string)
+  default     = ["file1.txt", "file2.txt", "file3.txt", "file4.txt", "file5.txt", "file6.txt", "file7.txt", "file8.txt", "file9.txt", "file10.txt"]
+}
+
+File: terraform.tf
+resource "local_file" "example" {
+  count    = length(var.files)
+  filename = var.files[count.index]
+  content  = ""
+}
+```
+
+These templates demonstrate different ways to create ten files using the `local_file` resource in Terraform.
+[25/04, 11:42 am] Meta AI: Here's an example of using the `count` function with variables to create ten files with different content:
+
+main.tf
+```
+terraform
+resource "local_file" "example" {
+  count    = var.file_count
+  filename = "file${count.index + 1}.txt"
+  content  = var.file_contents[count.index]
+}
+```
+
+variables.tf
+```
+terraform
+variable "file_count" {
+  type        = number
+  default     = 10
+}
+
+variable "file_contents" {
+  type        = list(string)
+  default     = [
+    "This is the content of file 1.",
+    "This is the content of file 2.",
+    "This is the content of file 3.",
+    "This is the content of file 4.",
+    "This is the content of file 5.",
+    "This is the content of file 6.",
+    "This is the content of file 7.",
+    "This is the content of file 8.",
+    "This is the content of file 9.",
+    "This is the content of file 10.",
+  ]
+}
+```
+
+No values.tf file is needed in this case
+With this configuration, Terraform will create ten files (`file1.txt` to `file10.txt`) with different content specified in the `file_contents` variable.
 Here are four different Terraform templates to create ten files in a local provider:
 
 1. Single Terraform File (Normal)
