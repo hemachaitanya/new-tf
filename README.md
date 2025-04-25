@@ -1,3 +1,124 @@
+Here are four different Terraform templates to create ten files in a local provider:
+
+1. Single Terraform File (Normal)
+```
+terraform
+File: terraform.tf
+
+resource "null_resource" "example1" {
+  provisioner "local-exec" {
+    command = "touch file1.txt"
+  }
+}
+
+resource "null_resource" "example2" {
+  provisioner "local-exec" {
+    command = "touch file2.txt"
+  }
+}
+
+resource "null_resource" "example3" {
+  provisioner "local-exec" {
+    command = "touch file3.txt"
+  }
+}
+
+resource "null_resource" "example4" {
+  provisioner "local-exec" {
+    command = "touch file4.txt"
+  }
+}
+
+resource "null_resource" "example5" {
+  provisioner "local-exec" {
+    command = "touch file5.txt"
+  }
+}
+
+resource "null_resource" "example6" {
+  provisioner "local-exec" {
+    command = "touch file6.txt"
+  }
+}
+
+resource "null_resource" "example7" {
+  provisioner "local-exec" {
+    command = "touch file7.txt"
+  }
+}
+
+resource "null_resource" "example8" {
+  provisioner "local-exec" {
+    command = "touch file8.txt"
+  }
+}
+
+resource "null_resource" "example9" {
+  provisioner "local-exec" {
+    command = "touch file9.txt"
+  }
+}
+
+resource "null_resource" "example10" {
+  provisioner "local-exec" {
+    command = "touch file10.txt"
+  }
+}
+```
+
+2. Using Count Function
+```
+terraform
+File: terraform.tf
+
+resource "null_resource" "example" {
+  count = 10
+
+  provisioner "local-exec" {
+    command = "touch file${count.index + 1}.txt"
+  }
+}
+```
+
+3. Using Variables
+```
+terraform
+File: variables.tf
+variable "file_count" {
+  type        = number
+  default     = 10
+}
+
+File: terraform.tf
+resource "null_resource" "example" {
+  count = var.file_count
+
+  provisioner "local-exec" {
+    command = "touch file${count.index + 1}.txt"
+  }
+}
+```
+
+4. Using Length Function
+```
+terraform
+File: variables.tf
+variable "files" {
+  type        = list(string)
+  default     = ["file1.txt", "file2.txt", "file3.txt", "file4.txt", "file5.txt", "file6.txt", "file7.txt", "file8.txt", "file9.txt", "file10.txt"]
+}
+
+File: terraform.tf
+resource "null_resource" "example" {
+  count = length(var.files)
+
+  provisioner "local-exec" {
+    command = "touch ${var.files[count.index]}"
+  }
+}
+```
+
+These templates demonstrate different ways to create ten files using Terraform. The `null_resource` is used to create a local-exec provisioner that runs a command to create a file.
 [25/04, 10:40 am] Meta AI: Here's an expanded outline for a one-hour open house session on Terraform:
 
 Introduction (5 minutes)
